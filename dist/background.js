@@ -2674,7 +2674,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _token__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_token__WEBPACK_IMPORTED_MODULE_3__);
 
 
-
+var ccll_previous_word = "";
+chrome.runtime.onMessage.addListener(function(message){
+  console.log("ccll05","before chrome.tabs.create .. "+message.value);
+  if (message.id == "newTab" && message.value!=ccll_previous_word){
+    ccll_previous_word = message.value;
+    var url = "https://www.google.com/search?q=define+"+message.value;
+    chrome.tabs.create({ url: url });
+  }
+});
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.contentScriptQuery === "translate") {
